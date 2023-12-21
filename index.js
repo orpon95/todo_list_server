@@ -12,7 +12,7 @@ const port = process.env.PORT || 5000;
 // middeleware
 app.use(cors());
 app.use(express.json());
-// console.log(process.env.DB_USER);
+console.log(process.env.DB_PASS);
 
 
 
@@ -46,9 +46,18 @@ async function run() {
         app.post("/v1/lists", async (req, res) => {
             const lists = req.body;
             console.log(lists, "lists ");
-            // const result = await todolist.insertOne(lists)
+            const result = await todolist.insertOne(lists)
             // const timestamp = new Date()
-            // res.send(result)
+            res.send(result)
+        })
+        // get api for getting all lists info
+        app.get("/v1/listsInfo", async (req, res) => {
+            
+
+            const cursor = todolist.find()
+            const result = await cursor.toArray()
+            res.send(result)
+
         })
 
 
